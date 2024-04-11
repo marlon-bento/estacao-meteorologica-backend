@@ -3,6 +3,7 @@ package com.iot2.estacaometeorologica.web.Controller;
 import java.net.URI;
 import java.util.List;
 
+import com.iot2.estacaometeorologica.web.dto.UsuarioCreatDto;
 import com.iot2.estacaometeorologica.web.dto.UsuarioDTO;
 import com.iot2.estacaometeorologica.web.dto.UsuarioLogin;
 import com.iot2.estacaometeorologica.web.dto.mapper.UsuarioMapper;
@@ -27,7 +28,9 @@ public class UsuarioController {
     private UsuarioService usuarioService;
     @CrossOrigin(origins = "*")
     @PostMapping("/criar")
-    public ResponseEntity<UsuarioDTO> criarUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioDTO> criarUsuario(@RequestBody UsuarioCreatDto user) {
+        UsuarioMapper maperuser = new UsuarioMapper();
+        Usuario usuario = maperuser.toUsuario(user);
         Usuario novoUsuario = usuarioService.salvarUsuario(usuario);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.setId(novoUsuario.getId());
